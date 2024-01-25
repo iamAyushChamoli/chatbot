@@ -16,9 +16,12 @@ export const validate = (validations : ValidationChain[])=>{
         return res.status(422).json({errors: errors.array()});
     };
 };
+export const loginValidator = [
+    body("email").trim().isEmail().withMessage("Email Format Is Incorrect"),
+    body("password").trim().isLength({min:6}).withMessage("Password should be atleast 6 Characters long")
+];
 
 export const signupValidator = [
     body("name").notEmpty().withMessage("Name cannot be Empty"),
-    body("email").trim().isEmail().withMessage("Email Format Is Incorrect"),
-    body("password").trim().isLength({min:6}).withMessage("Password should be atleast 6 Characters long")
+    ...loginValidator,
 ];
