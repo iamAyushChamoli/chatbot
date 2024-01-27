@@ -1,7 +1,7 @@
 import {connect, disconnect} from 'mongoose';
 async function connectToDatabase() {
     try {
-        await connect("mongodb+srv://root:root@cluster0.xmbpiny.mongodb.net/?retryWrites=true&w=majority");
+        await connect(process.env.REACT_APP_MONGODB_URL);
     } catch (error) {
         console.log(error);
         throw new Error("Cannot Connect To MongoDB");
