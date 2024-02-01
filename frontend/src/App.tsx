@@ -1,13 +1,30 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { Routes, Route } from 'react-router-dom'
+import Header from './components/Header.tsx'
+import Home from './pages/Home.tsx'
+import Login from './pages/Login.tsx'
+import Signup from './pages/Signup.tsx'
+import Chat from './pages/Chat.tsx'
+import NotFound from './pages/NotFound.tsx'
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
+    <> 
+      <main>
+        <Header/>
+        <Routes>
+          <Route path='/' element={<Home/>}></Route>
+          <Route path='/login' element={<Login/>}></Route>
+          <Route path='/signup' element={<Signup/>}></Route>
+          <Route path='/chat' element={<Chat/>}></Route>
+          <Route path='/*' element={<NotFound/>}></Route>
+          
+          
+        </Routes>
+      </main>
     </>
   )
 }
