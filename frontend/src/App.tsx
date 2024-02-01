@@ -7,10 +7,11 @@ import Login from './pages/Login.tsx'
 import Signup from './pages/Signup.tsx'
 import Chat from './pages/Chat.tsx'
 import NotFound from './pages/NotFound.tsx'
+import { useAuth } from './context/AuthContext.tsx'
 
 
 function App() {
-
+  // console.log(useAuth()?.isLoggedIn)
   return (
     <> 
       <main>
