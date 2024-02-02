@@ -3,6 +3,7 @@ import  AppBar  from '@mui/material/AppBar'
 import  Toolbar  from '@mui/material/Toolbar'
 import Logo from './shared/Logo'
 import { useAuth } from '../context/AuthContext'
+import NavigationLink from './shared/NavigationLink.tsx'
 
 const Header = () => {
   const auth = useAuth();
@@ -14,7 +15,34 @@ const Header = () => {
       <Toolbar sx={{display:"flex"}}>
         <Logo/>
         <div>
-          {auth?.isLoggedIn ? <></>:<></>}
+          {auth?.isLoggedIn ? 
+          (<>
+            <NavigationLink bg="#00fffc"
+             to = "/chat"
+             text = "Go To Chat"
+             textColor = "black" />
+             <NavigationLink
+             bg = "51538f"
+             textColor='white'
+             to='/'
+             text='Logout'
+             onClick={auth.logout}
+             />
+          </>)
+            :
+          (<>
+           <NavigationLink bg="#00fffc"
+             to = "/login"
+             text = "Go To Login"
+             textColor = "black" />
+             <NavigationLink
+             bg = "51538f"
+             textColor='white'
+             to='/signup'
+             text='SignUp'
+             />
+          </>)
+          }
         </div>
       </Toolbar>
     </AppBar>
