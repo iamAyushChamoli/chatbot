@@ -40,7 +40,7 @@ export const userSignup= async (
         res.cookie(COOKIE_NAME, token,{path:"/", domain:"localhost", expires, httpOnly:true, signed:true,});
 
 
-        return res.status(201).json({message:" SIGNUP OK", id:user._id.toString()});
+        return res.status(201).json({message:" SIGNUP OK", name:user.name, email:user.email});
     } catch (error) {
         return res.status(200).json({message:"ERROR", cause:error.message });
     }
@@ -73,7 +73,31 @@ export const userLogin= async (
         expires.setDate(expires.getDate()+7);
         res.cookie(COOKIE_NAME, token,{path:"/", domain:"localhost", expires, httpOnly:true, signed:true,});
 
-        return res.status(200).json({message:" LOGIN OK", id:user._id.toString()});
+        return res.status(200).json({message:" LOGIN OK", name:user.name, email:user.email});
+    } catch (error) {
+        return res.status(200).json({message:"ERROR", cause:error.message });
+    }
+}
+
+export const verifyUser= async (
+    req:Request,
+    res: Response,
+    next:NextFunction)=>{
+    try {
+        const user =  await User.findById(res.locals.jwtData.id);
+        if(!user){
+            return res.status(401).send("User Does Not Exist Or Token Malfunctioned");
+        }
+
+        // console.log(user._id.toString(), res.locals.jwtData.id);
+        
+
+        if(user._id.toString()!== res.locals.jwtData.id){
+            return res.status(401).send("Permissions Did Not Match");
+        }
+
+
+        return res.status(200).json({message:" TOKEN AUTHENTICATION OK", name:user.name, email:user.email});
     } catch (error) {
         return res.status(200).json({message:"ERROR", cause:error.message });
     }
