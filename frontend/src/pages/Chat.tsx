@@ -1,8 +1,9 @@
 import React from 'react'
-import { Avatar, Box, Button, Typography } from '@mui/material'
+import { Avatar, Box, Button, Typography, IconButton } from '@mui/material'
 import { useAuth } from '../context/AuthContext'
 import { red } from '@mui/material/colors'
 import ChatItem from '../components/chat/ChatItem'
+import { IoMdSend } from 'react-icons/io'
 const chatMessages = [
   {
     "role": "assistant",
@@ -139,6 +140,20 @@ const Chat = () => {
           )
         )}
       </Box>
+      <div style={{width:"100%", padding:"20px", borderRadius:8, backgroundColor:"rgb(18,27,39)", display:"flex", margin:"auto", }}>
+      <input type="text" style={{
+        width:"100%",
+        backgroundColor:"transparent",
+        padding:"10px",
+        border:"none",
+        outline:"none",
+        color:"white",
+        fontSize:"10px",
+    }} />
+
+      <IconButton sx={{ml:"auto", color:"white"}}> <IoMdSend></IoMdSend> </IconButton>
+
+      </div>
     </Box>
   </Box>
 }
