@@ -16,17 +16,17 @@ const Chat = () => {
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
   const auth =useAuth();
 
-  const handleSubmit = async ()=>{
+  const handleSubmit = async () => {
     const content = inputRef.current?.value as string;
-    if(inputRef && inputRef.current){
+    if (inputRef && inputRef.current) {
       inputRef.current.value = "";
     }
-    const newMessage:Message = {role: "user", content};
-    setChatMessages((prev)=>[...prev, newMessage]);
-    
+    const newMessage: Message = { role: "user", content };
+    setChatMessages((prev) => [...prev, newMessage]);
     const chatData = await sendChatRequest(content);
     setChatMessages([...chatData.chats]);
-  }
+    //
+  };
   return <Box sx={{
     display:"flex",
     flex:1,
