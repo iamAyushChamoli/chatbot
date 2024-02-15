@@ -6,6 +6,6 @@ import { generateChatCompletion } from "../controllers/chat-controller.js";
 
 //Protected API
 const chatRoutes = Router();
-chatRoutes.get("/new",validate(chatCompletionValidator), verifyToken, generateChatCompletion as any )
+chatRoutes.post("/new",validate(chatCompletionValidator), verifyToken, generateChatCompletion)
 
 export default chatRoutes;
