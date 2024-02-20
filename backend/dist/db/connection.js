@@ -1,11 +1,11 @@
-import { connect, disconnect } from 'mongoose';
+import { connect, disconnect } from "mongoose";
 async function connectToDatabase() {
     try {
         await connect(process.env.REACT_APP_MONGODB_URL);
     }
     catch (error) {
         console.log(error);
-        throw new Error("Cannot Connect To MongoDB");
+        throw new Error("Could not Connect To MongoDB");
     }
 }
 async function disconnectFromDatabase() {
@@ -14,7 +14,7 @@ async function disconnectFromDatabase() {
     }
     catch (error) {
         console.log(error);
-        throw new Error("Disconnect Failed");
+        throw new Error("Could not Disconnect From MongoDB");
     }
 }
 export { connectToDatabase, disconnectFromDatabase };

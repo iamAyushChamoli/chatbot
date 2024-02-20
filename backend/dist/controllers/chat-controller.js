@@ -1,6 +1,5 @@
 import User from "../models/user.js";
-import { configureOpenAI } from "../config/openai-config.js";
-import { OpenAIApi } from "openai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 export const generateChatCompletion = async (req, res, next) => {
     const { message } = req.body;
     try {
@@ -17,14 +16,18 @@ export const generateChatCompletion = async (req, res, next) => {
         chats.push({ content: message, role: "user" });
         user.chats.push({ content: message, role: "user" });
         // send all chats with new one to openAI API
-        const config = configureOpenAI();
-        const openai = new OpenAIApi(config);
+        // const config = configureOpenAI();
+        const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GENAI_API);
+        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+        const chatResponse = await model.generateContent(message);
+        const result = await chatResponse.response;
+        console.log(result.text);
         // get latest response
-        const chatResponse = await openai.createChatCompletion({
-            model: "gpt-3.5-turbo",
-            messages: chats,
-        });
-        user.chats.push(chatResponse.data.choices[0].message);
+        // const chatResponse = await genAI.createChatCompletion({
+        //   model: "gpt-3.5-turbo",
+        //   messages: chats,
+        // });
+        user.chats.push(result.text);
         await user.save();
         return res.status(200).json({ chats: user.chats });
     }

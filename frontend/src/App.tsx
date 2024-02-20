@@ -1,33 +1,29 @@
-import { useState } from 'react'
-import './App.css'
-import { Routes, Route } from 'react-router-dom'
-import Header from './components/Header.tsx'
-import Home from './pages/Home.tsx'
-import Login from './pages/Login.tsx'
-import Signup from './pages/Signup.tsx'
-import Chat from './pages/Chat.tsx'
-import NotFound from './pages/NotFound.tsx'
-import { useAuth } from './context/AuthContext.tsx'
-
-
+import Header from "./components/Header";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Chat from "./pages/Chat";
+import NotFound from "./pages/NotFound";
+import { useAuth } from "./context/AuthContext";
+import Footer from "./components/footer/Footer";
 function App() {
-  // console.log(useAuth()?.isLoggedIn)
+  const auth = useAuth();
+
   return (
-    <> 
-      <main>
-        <Header/>
-        <Routes>
-          <Route path='/' element={<Home/>}></Route>
-          <Route path='/login' element={<Login/>}></Route>
-          <Route path='/signup' element={<Signup/>}></Route>
-          <Route path='/chat' element={<Chat/>}></Route>
-          <Route path='/*' element={<NotFound/>}></Route>
-          
-          
-        </Routes>
-      </main>
-    </>
-  )
+    <main>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        {auth?.isLoggedIn && auth.user && (
+          <Route path="/chat" element={<Chat />} />
+        )}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </main>
+  );
 }
 
-export default App
+export default App;
