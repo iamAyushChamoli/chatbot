@@ -11,6 +11,8 @@ import {
   sendChatRequest,
 } from "../helpers/api-communicator";
 import toast from "react-hot-toast";
+import { AvatarGenerator } from "random-avatar-generator";
+
 type Message = {
   role: "user" | "assistant";
   content: string;
@@ -42,6 +44,7 @@ const Chat = () => {
       toast.error("Deleting chats failed", { id: "deletechats" });
     }
   };
+  const generateor = new AvatarGenerator();
   useLayoutEffect(() => {
     if (auth?.isLoggedIn && auth.user) {
       toast.loading("Loading Chats", { id: "loadchats" });
@@ -98,14 +101,15 @@ const Chat = () => {
               color: "black",
               fontWeight: 700,
             }}
+            src={`${generateor.generateRandomAvatar('avatar')}`}
+
           >
-            {auth?.user?.name[0]}
-            {auth?.user?.name.split(" ")[1][0]}
+            
           </Avatar>
-          <Typography sx={{ mx: "auto", fontFamily: "work sans" }}>
+          <Typography sx={{ mx: "auto", fontFamily: "Kode Mono" }}>
             You are talking to a ChatBOT
           </Typography>
-          <Typography sx={{ mx: "auto", fontFamily: "work sans", my: 4, p: 3 }}>
+          <Typography sx={{ mx: "auto", fontFamily: "Kode Mono", my: 4, p: 3 }}>
             You can ask some questions related to Knowledge, Business, Advices,
             Education, etc. But avoid sharing personal information
           </Typography>
@@ -115,6 +119,7 @@ const Chat = () => {
               width: "200px",
               my: "auto",
               color: "white",
+              fontFamily:"Kode Mono",
               fontWeight: "700",
               borderRadius: 3,
               mx: "auto",
@@ -143,6 +148,7 @@ const Chat = () => {
             mb: 2,
             mx: "auto",
             fontWeight: "600",
+            fontFamily:"Kode Mono"
           }}
         >
           Model - GPT 3.5 Turbo
@@ -187,6 +193,7 @@ const Chat = () => {
               outline: "none",
               color: "white",
               fontSize: "20px",
+              fontFamily:"Kode Mono",
             }}
           />
           <IconButton onClick={handleSubmit} sx={{ color: "white", mx: 1 }}>

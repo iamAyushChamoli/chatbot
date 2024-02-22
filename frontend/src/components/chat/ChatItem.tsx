@@ -3,6 +3,7 @@ import { Box, Avatar, Typography } from "@mui/material";
 import { useAuth } from "../../context/AuthContext";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { AvatarGenerator } from "random-avatar-generator";
 
 function extractCodeFromString(message: string) {
   if (message.includes("```")) {
@@ -33,6 +34,7 @@ const ChatItem = ({
   content: string;
   role: "user" | "assistant";
 }) => {
+  const generator = new AvatarGenerator();
   const messageBlocks = extractCodeFromString(content);
   const auth = useAuth();
   return role == "assistant" ? (
@@ -51,7 +53,7 @@ const ChatItem = ({
       </Avatar>
       <Box>
         {!messageBlocks && (
-          <Typography sx={{ fontSize: "20px" }}>{content}</Typography>
+          <Typography sx={{ fontSize: "20px", fontFamily:"Kode Mono" }}>{content}</Typography>
         )}
         {messageBlocks &&
           messageBlocks.length &&
@@ -61,7 +63,7 @@ const ChatItem = ({
                 {block}
               </SyntaxHighlighter>
             ) : (
-              <Typography sx={{ fontSize: "20px" }}>{block}</Typography>
+              <Typography sx={{ fontSize: "20px", fontFamily:"Kode Mono" }}>{block}</Typography>
             )
           )}
       </Box>
@@ -76,13 +78,12 @@ const ChatItem = ({
         borderRadius: 2,
       }}
     >
-      <Avatar sx={{ ml: "0", bgcolor: "black", color: "white" }}>
-        {auth?.user?.name[0]}
-        {auth?.user?.name.split(" ")[1][0]}
+      <Avatar sx={{ ml: "0", bgcolor: "black", color: "white" }} src={`${generator.generateRandomAvatar('avatar')}`}>
+        
       </Avatar>
       <Box>
         {!messageBlocks && (
-          <Typography sx={{ fontSize: "20px" }}>{content}</Typography>
+          <Typography sx={{ fontSize: "20px", fontFamily:"Kode Mono" }}>{content}</Typography>
         )}
         {messageBlocks &&
           messageBlocks.length &&
@@ -92,7 +93,7 @@ const ChatItem = ({
                 {block}
               </SyntaxHighlighter>
             ) : (
-              <Typography sx={{ fontSize: "20px" }}>{block}</Typography>
+              <Typography sx={{ fontSize: "20px", fontFamily:"Kode Mono" }}>{block}</Typography>
             )
           )}
       </Box>

@@ -13,17 +13,17 @@ const Footer = () => {
         }}
       >
         <p style={{ fontSize: "30px", textAlign: "center", padding: "20px" }}>
-          Built With love by
+          Application programmed by
           <span>
             <Link
-              style={{ color: "white" }}
-              className="nav-link"
-              to={"https://youtube.com/indiancoders"}
+              
+              className="nav-link "
+              to={"https://github.com/iamAyushChamoli"}
+              target="_blank"
             >
-              Indian Coders
+            Ayush Chamoli
             </Link>
           </span>
-          💘
         </p>
       </div>
     </footer>
